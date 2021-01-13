@@ -1,25 +1,22 @@
-# 80/100
+# 100/100
 
 from collections import deque
 
 food_quantity = int(input())
 
-queue = deque()
-
-command = input().split(" ")
-for el in command:
-    queue.append(int(el))
-
+queue = deque(map(int, input().split(" ")))
 print(max(queue))
 
 while queue:
-    order = queue.popleft()
+    order = queue[0]  # става като peek, без да pop-ваме
     if order <= food_quantity:
+        order = queue.popleft()
         food_quantity -= order
+
     elif order > food_quantity:
-        queue.append(order)
-        print(f'Orders left: {" ".join(list(map(str, queue)))}')
         break
 
 if not queue:
     print("Orders complete")
+else:
+    print(f'Orders left: {" ".join(list(map(str, queue)))}')
